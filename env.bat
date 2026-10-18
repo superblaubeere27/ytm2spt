@@ -1,6 +1,7 @@
 @echo off
 
-@REM Remove the  < and > characters when setting the actual values in line 4,5,6.
+@REM Remove the  < and > characters when setting the actual values.
+@REM SPOTIFY_USER_ID is optional and no longer used to call the Spotify API.
 set SPOTIFY_USER_ID=<your_user_id>
 set SPOTIFY_CLIENT_ID=<your_client_id>
 set SPOTIFY_CLIENT_SECRET=<your_client_secret>

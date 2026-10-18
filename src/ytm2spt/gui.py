@@ -39,8 +39,9 @@ def init_settings():
 
 
 def is_valid_settings():
-    return SETTINGS.value("SPOTIFY_USER_ID") != "" \
-    and SETTINGS.value("SPOTIFY_CLIENT_ID") != "" \
+    # SPOTIFY_USER_ID is no longer needed to talk to the Spotify API, so it is
+    # intentionally not required here.
+    return SETTINGS.value("SPOTIFY_CLIENT_ID") != "" \
     and SETTINGS.value("SPOTIFY_CLIENT_SECRET") != "" \
     and SETTINGS.value("SPOTIFY_REDIRECT_URI") != ""
 
@@ -61,7 +62,7 @@ class SpotifySettingsDialog(QDialog):
 
         self.user_id_input = QLineEdit()
         self.user_id_input.setText(SETTINGS.value("SPOTIFY_USER_ID", defaultValue=""))
-        # self.user_id_input.setPlaceholderText("This is not email")
+        self.user_id_input.setPlaceholderText("Optional - not used anymore")
         layout.addRow("User ID", self.user_id_input)
 
         self.client_id_input = QLineEdit()
