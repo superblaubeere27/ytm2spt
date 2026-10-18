@@ -18,10 +18,6 @@ def generate_description() -> str:
 
 class Spotify:
     def __init__(self):
-        # Not used to build API requests anymore (see get_user_playlists and
-        # create_playlist). Still read for backwards compatibility with
-        # existing configs, so it is optional now.
-        self.user_id = os.environ.get("SPOTIFY_USER_ID", "")
         open_browser = True
         if platform.system() == "Linux" and not (os.environ.get("DISPLAY") or os.environ.get("WAYLAND_DISPLAY")):
             open_browser = False
@@ -42,16 +38,11 @@ class Spotify:
         self.spotify_logger.debug(f"Set Playlist ID: {self.playlist_id}")
     
     def get_user_playlists(self) -> 'list':
-        # Spotify restricts the legacy /users/{user_id}/playlists endpoint for
-        # newer apps (403 Forbidden), even for the authenticated user's own
-        # account. /me/playlists is the supported replacement.
         playlists = self.spotify.current_user_playlists()["items"]
         self.spotify_logger.debug(f"Got User's Playlists: {playlists}")
         return playlists
 
     def create_playlist(self, playlist_name: str, description: str = "") -> str:
-        # Same restriction as above: POST /users/{user_id}/playlists is
-        # forbidden, POST /me/playlists is not.
         playlist = self.spotify.current_user_playlist_create(playlist_name, description=description)
         self.spotify_logger.debug(f"Created Playlist: {playlist}")
         return playlist['id']
