@@ -19,3 +19,8 @@ ytmusicapi-oauth.json
 venv
 dist
 build
+
+# Nix
+result
+result-*
+.direnv/

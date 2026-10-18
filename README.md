@@ -83,6 +83,27 @@ pip install ytm2spt
 
 After installation, you can run the app using the command `ytm2spt`.
 
+**Using Nix (flakes):**
+
+This fork ships a flake on the [`nix` branch](https://github.com/superblaubeere27/ytm2spt/tree/nix) that builds the app
+from source (including the Spotify `/me/playlists` fix) and works on NixOS, Linux and macOS.
+
+```sh
+# run without installing (no arguments = GUI, arguments = CLI)
+nix run github:superblaubeere27/ytm2spt/nix -- --help
+nix run github:superblaubeere27/ytm2spt/nix -- -yt <youtube_playlist_id> -spname "My Playlist"
+
+# or install it into your profile
+nix profile install github:superblaubeere27/ytm2spt/nix
+
+# YouTube Music OAuth helper (private playlists)
+nix run github:superblaubeere27/ytm2spt/nix#ytmusicapi-oauth
+```
+
+From a local clone of the `nix` branch: `nix build`, `nix run . -- --help`, `nix develop`.
+The flake exposes `packages.default`, `apps.default`, `apps.ytmusicapi-oauth`, `checks.default`,
+`devShells.default` and an `overlays.default` (`ytm2spt`).
+
 > [!CAUTION]<br>
 > While syncing into an existing spotify playlist, first all the songs from Stopify playlist will be deleted and then the all the songs from YouTube Music playlist will be copied.
 
